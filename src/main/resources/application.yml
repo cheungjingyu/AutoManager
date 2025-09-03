@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: AutoManager
+server:
+  port: 10086
