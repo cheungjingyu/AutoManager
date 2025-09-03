@@ -1,5 +1,7 @@
 package com.cheung.automanager.service.project;
 
+import cn.hutool.core.io.FileUtil;
+import com.cheung.automanager.controller.vo.KronosVo;
 import com.cheung.automanager.service.StrategyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,15 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+
+import static com.cheung.automanager.config.AutoConstant.DATA_FILE_NAME;
+import static com.cheung.automanager.config.AutoConstant.EXEC_FILE_NAME;
+import static com.cheung.automanager.config.AutoConstant.EXEC_FILE_NAME_MODEL;
+import static com.cheung.automanager.config.AutoConstant.KRONOS_EXAMPLE_PATH;
+import static com.cheung.automanager.config.AutoConstant.LOOK_BACK_NUMBER;
+import static com.cheung.automanager.config.AutoConstant.PRED_LEN_NUMBER;
+import static com.cheung.automanager.config.AutoConstant.PYTHON_PATH;
 
 @Slf4j
 @Service
@@ -35,14 +46,19 @@ public class ProjectStrategyServiceImpl implements StrategyService {
     }
 
     @Override
-    public Object exec(String shell, boolean sync) {
-        // 执行指令: python  /Users/cheung/Downloads/Kronos-master/examples/prediction_example_cpu.py
+    public Object exec(KronosVo kronosVo) {
+        //替换数据文件名
+        changeDataFileName(kronosVo);
+        return execModel(kronosVo.isSync());
+    }
+
+    private Object execModel(boolean sync) {
         try {
             // 定义工作目录
-            File workingDir = new File("/Users/cheung/Downloads/Kronos-master/examples");
+            File workingDir = new File(KRONOS_EXAMPLE_PATH);
 
             // 使用 ProcessBuilder 执行命令
-            ProcessBuilder pb = new ProcessBuilder("/usr/bin/python3", "prediction_example_cpu.py");
+            ProcessBuilder pb = new ProcessBuilder(PYTHON_PATH, EXEC_FILE_NAME);
             pb.directory(workingDir); // 设置工作目录
 
             // 启动进程
@@ -88,12 +104,24 @@ public class ProjectStrategyServiceImpl implements StrategyService {
             } else {
                 return "success";
             }
-
         } catch (Exception e) {
             log.error("Failed to execute python script", e);
             return "Execution failed: " + e.getMessage();
         }
     }
 
+    private void changeDataFileName(KronosVo kronosVo) {
+        // 读取模型文件内容
+        String modelPath = KRONOS_EXAMPLE_PATH + EXEC_FILE_NAME_MODEL;
+        String context = FileUtil.readString(modelPath, Charset.defaultCharset());
 
+        // 替换数据文件名称
+        context = context.replaceAll(DATA_FILE_NAME, kronosVo.getDataFileName());
+        context = context.replaceAll(LOOK_BACK_NUMBER, kronosVo.getLockBackNum().toString());
+        context = context.replaceAll(PRED_LEN_NUMBER, kronosVo.getPredLenNum().toString());
+
+        // 将修改后的内容写回模型文件
+        String writePath = KRONOS_EXAMPLE_PATH + EXEC_FILE_NAME;
+        FileUtil.writeString(context, writePath, Charset.defaultCharset());
+    }
 }

@@ -1,5 +1,7 @@
 package com.cheung.automanager.service;
 
+import com.cheung.automanager.controller.vo.KronosVo;
+
 public interface StrategyService {
 
     Object load() throws Exception;
@@ -10,5 +12,5 @@ public interface StrategyService {
 
     void get(String name);
 
-    Object exec(String shell, boolean sync);
+    Object exec(KronosVo kronosVo);
 }

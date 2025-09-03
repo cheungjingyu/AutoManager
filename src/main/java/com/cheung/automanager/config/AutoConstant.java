@@ -12,5 +12,14 @@ public class AutoConstant {
     /**
      * 自定义文件名
      */
-    public static final String CUSTOM_FILE_NAME = "CUSTOM_FILE_NAME";
+    public static final String DATA_FILE_NAME = "DATA_FILE_NAME";
+
+    public static final String EXEC_FILE_NAME = "prediction_example_cpu.py";
+    public static final String EXEC_FILE_NAME_MODEL = "prediction_example_cpu_model.py";
+
+    public static final String PYTHON_PATH = "/usr/bin/python3";
+
+    public static final String KRONOS_EXAMPLE_PATH = "/Users/cheung/Downloads/Kronos-master/examples/";
+    public static final String LOOK_BACK_NUMBER = "LOOK_BACK_NUMBER";
+    public static final String PRED_LEN_NUMBER = "PRED_LEN_NUMBER";
 }
