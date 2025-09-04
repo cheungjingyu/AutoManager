@@ -311,7 +311,7 @@ If you use Kronos in your research, we would appreciate a citation to our [paper
 ```
 
 ## 📜 License 
-This project is licensed under the [MIT License](./LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
 
 
