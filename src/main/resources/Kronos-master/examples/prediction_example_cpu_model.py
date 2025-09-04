@@ -94,13 +94,17 @@ pred_df = predictor.predict(
 
 # 5. 输出预测结果并可视化
 print("Forecasted Data Head:")
-print(pred_df)
+if(PRINT_ALL_RESULT) :
+    print(pred_df)
+else:
+    print(pred_df.head())
+
 # 保存预测结果
 pred_df.to_csv('result_'+'DATA_FILE_NAME', index=True)
 
-# 拼接历史数据和预测数据用于绘图展示
-kline_df = df.loc[start_index:start_index+lookback+pred_len-1]
-
-# 调用绘图函数进行可视化
-if(SHOW_RESULT)  :plot_prediction(kline_df, pred_df)
+if(SHOW_RESULT) :
+    # 拼接历史数据和预测数据用于绘图展示
+    kline_df = df.loc[start_index:start_index+lookback+pred_len-1]
+    # 调用绘图函数进行可视化
+    plot_prediction(kline_df, pred_df)
 

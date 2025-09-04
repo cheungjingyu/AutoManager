@@ -30,14 +30,16 @@ public class StrategyController {
                                   @RequestParam(defaultValue = "0") Integer startIndex,
                                   @RequestParam(defaultValue = "200") Integer lockBackNum,
                                   @RequestParam(defaultValue = "40") Integer predLenNum,
-                                  @RequestParam(defaultValue = "true") boolean showResult) throws Exception {
+                                  @RequestParam(defaultValue = "true") boolean showResult,
+                                  @RequestParam(defaultValue = "false") boolean printAllResult) throws Exception {
         KronosVo kronosVo = new KronosVo()
                 .setSync(sync)
                 .setDataFileName(dataFileName)
                 .setStartIndex(startIndex)
                 .setLockBackNum(lockBackNum)
                 .setPredLenNum(predLenNum)
-                .setShowResult(showResult);
+                .setShowResult(showResult)
+                .setPrintAllResult(printAllResult);
         return ResponseEntity.ok(strategyService.exec(kronosVo));
     }
 }

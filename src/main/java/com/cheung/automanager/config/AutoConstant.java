@@ -26,6 +26,7 @@ public class AutoConstant {
     public static final String START_INDEX = "START_INDEX";
     public static final String PRED_LEN_NUMBER = "PRED_LEN_NUMBER";
     public static final String SHOW_RESULT = "SHOW_RESULT";
+    public static final String PRINT_ALL_RESULT = "PRINT_ALL_RESULT";
 
     public static String getResourcePath(String path) {
         return Objects.requireNonNull(AutoConstant.class.getClassLoader().getResource(path)).getPath();

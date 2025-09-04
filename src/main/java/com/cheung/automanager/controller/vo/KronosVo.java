@@ -13,4 +13,5 @@ public class KronosVo {
     Integer predLenNum;
     Integer startIndex;
     boolean showResult;
+    boolean printAllResult;
 }

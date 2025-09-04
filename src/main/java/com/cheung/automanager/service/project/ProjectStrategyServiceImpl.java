@@ -19,6 +19,7 @@ import static com.cheung.automanager.config.AutoConstant.EXEC_FILE_NAME_MODEL;
 import static com.cheung.automanager.config.AutoConstant.KRONOS_EXAMPLE_PATH;
 import static com.cheung.automanager.config.AutoConstant.LOOK_BACK_NUMBER;
 import static com.cheung.automanager.config.AutoConstant.PRED_LEN_NUMBER;
+import static com.cheung.automanager.config.AutoConstant.PRINT_ALL_RESULT;
 import static com.cheung.automanager.config.AutoConstant.PYTHON_PATH;
 import static com.cheung.automanager.config.AutoConstant.SHOW_RESULT;
 import static com.cheung.automanager.config.AutoConstant.START_INDEX;
@@ -131,6 +132,7 @@ public class ProjectStrategyServiceImpl implements StrategyService {
         context = context.replaceAll(LOOK_BACK_NUMBER, kronosVo.getLockBackNum().toString());
         context = context.replaceAll(PRED_LEN_NUMBER, kronosVo.getPredLenNum().toString());
         context = context.replaceAll(SHOW_RESULT, kronosVo.isShowResult() ? "True" : "False");
+        context = context.replaceAll(PRINT_ALL_RESULT, kronosVo.isPrintAllResult() ? "True" : "False");
 
         // 将修改后的内容写回模型文件
         String writePath = AutoConstant.getResourcePath(KRONOS_EXAMPLE_PATH + EXEC_FILE_NAME);
