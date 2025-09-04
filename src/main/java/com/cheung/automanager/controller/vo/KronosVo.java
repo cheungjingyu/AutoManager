@@ -7,12 +7,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 //set返回当前对象的注解
 public class KronosVo {
-    boolean sync;
-    String dataFileName;
-    Integer lockBackNum;
-    Integer predLenNum;
-    Integer startIndex;
-    boolean showResult;
-    boolean printAllResult;
-    boolean saveResult;
+    private boolean sync;
+    private String dataFileName;
+    private Integer lockBackNum;
+    private Integer predLenNum;
+    private Integer startIndex;
+    private boolean showResult;
+    private boolean printAllResult;
+    private boolean saveResult;
 }

@@ -39,7 +39,7 @@ public class StrategyController {
      */
     @GetMapping("/kronos/exec")
     @ApiOperation(value = "执行策略", position = 1)
-    public ResponseEntity<?> exec(@RequestParam(defaultValue = "XSHG_5min_600977.csv") String dataFileName,
+    public ResponseEntity<?> exec(@RequestParam(defaultValue = "data.csv") String dataFileName,
                                   @RequestParam(defaultValue = "0") Integer startIndex,
                                   @RequestParam(defaultValue = "200") Integer lockBackNum,
                                   @RequestParam(defaultValue = "40") Integer predLenNum,

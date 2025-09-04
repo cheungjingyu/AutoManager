@@ -68,7 +68,7 @@ predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
 filename = "DATA_FILE_NAME"
 filepath = f"./data/{filename}"
 df = pd.read_csv(filepath)
-df['timestamps'] = pd.to_datetime(df['timestamps'])
+df['trade_date'] = pd.to_datetime(df['trade_date'])
 
 start_index = START_INDEX       # 开始下标
 lookback = LOOK_BACK_NUMBER       # 历史数据长度
@@ -76,9 +76,9 @@ pred_len = PRED_LEN_NUMBER       # 预测长度
 
 # 截取历史数据作为输入特征
 x_df = df.loc[start_index:start_index+lookback-1, ['open', 'high', 'low', 'close', 'volume', 'amount']]
-x_timestamp = df.loc[start_index:start_index+lookback-1, 'timestamps']
+x_timestamp = df.loc[start_index:start_index+lookback-1, 'trade_date']
 # 获取预测时间戳
-y_timestamp = df.loc[start_index+lookback:start_index+lookback+pred_len-1, 'timestamps']
+y_timestamp = df.loc[start_index+lookback:start_index+lookback+pred_len-1, 'trade_date']
 
 # 4. 执行预测操作
 pred_df = predictor.predict(
