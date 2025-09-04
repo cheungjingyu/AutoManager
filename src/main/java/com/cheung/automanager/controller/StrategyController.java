@@ -36,7 +36,7 @@ public class StrategyController {
      * @return ResponseEntity<?> 策略执行结果的响应实体
      * @throws Exception 执行过程中可能抛出的异常
      */
-    @GetMapping("/exec")
+    @GetMapping("/kronos/exec")
     @ApiOperation(value = "执行策略", position = 1)
     public ResponseEntity<?> exec(@RequestParam(defaultValue = "true") boolean sync,
                                   @RequestParam(defaultValue = "XSHG_5min_600977.csv") String dataFileName,
@@ -56,5 +56,4 @@ public class StrategyController {
                 .setPrintAllResult(printAllResult);
         return ResponseEntity.ok(strategyService.exec(kronosVo));
     }
-
 }
