@@ -27,13 +27,17 @@ public class StrategyController {
     @ApiOperation(value = "执行策略", position = 1)
     public ResponseEntity<?> exec(@RequestParam(defaultValue = "true") boolean sync,
                                   @RequestParam(defaultValue = "XSHG_5min_600977.csv") String dataFileName,
+                                  @RequestParam(defaultValue = "0") Integer startIndex,
                                   @RequestParam(defaultValue = "200") Integer lockBackNum,
-                                  @RequestParam(defaultValue = "40") Integer predLenNum) throws Exception {
+                                  @RequestParam(defaultValue = "40") Integer predLenNum,
+                                  @RequestParam(defaultValue = "true") boolean showResult) throws Exception {
         KronosVo kronosVo = new KronosVo()
                 .setSync(sync)
                 .setDataFileName(dataFileName)
+                .setStartIndex(startIndex)
                 .setLockBackNum(lockBackNum)
-                .setPredLenNum(predLenNum);
+                .setPredLenNum(predLenNum)
+                .setShowResult(showResult);
         return ResponseEntity.ok(strategyService.exec(kronosVo));
     }
 }

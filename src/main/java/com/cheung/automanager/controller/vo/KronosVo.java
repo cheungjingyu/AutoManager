@@ -11,4 +11,6 @@ public class KronosVo {
     String dataFileName;
     Integer lockBackNum;
     Integer predLenNum;
+    Integer startIndex;
+    boolean showResult;
 }

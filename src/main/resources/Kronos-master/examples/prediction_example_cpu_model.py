@@ -70,14 +70,15 @@ filepath = f"./data/{filename}"
 df = pd.read_csv(filepath)
 df['timestamps'] = pd.to_datetime(df['timestamps'])
 
+start_index = START_INDEX       # 开始下标
 lookback = LOOK_BACK_NUMBER       # 历史数据长度
 pred_len = PRED_LEN_NUMBER       # 预测长度
 
 # 截取历史数据作为输入特征
-x_df = df.loc[:lookback-1, ['open', 'high', 'low', 'close', 'volume', 'amount']]
-x_timestamp = df.loc[:lookback-1, 'timestamps']
+x_df = df.loc[start_index:start_index+lookback-1, ['open', 'high', 'low', 'close', 'volume', 'amount']]
+x_timestamp = df.loc[start_index:start_index+lookback-1, 'timestamps']
 # 获取预测时间戳
-y_timestamp = df.loc[lookback:lookback+pred_len-1, 'timestamps']
+y_timestamp = df.loc[start_index+lookback:start_index+lookback+pred_len-1, 'timestamps']
 
 # 4. 执行预测操作
 pred_df = predictor.predict(
@@ -93,11 +94,13 @@ pred_df = predictor.predict(
 
 # 5. 输出预测结果并可视化
 print("Forecasted Data Head:")
-print(pred_df.head())
+print(pred_df)
+# 保存预测结果
+pred_df.to_csv('result_'+'DATA_FILE_NAME', index=True)
 
 # 拼接历史数据和预测数据用于绘图展示
-kline_df = df.loc[:lookback+pred_len-1]
+kline_df = df.loc[start_index:start_index+lookback+pred_len-1]
 
 # 调用绘图函数进行可视化
-plot_prediction(kline_df, pred_df)
+if(SHOW_RESULT)  :plot_prediction(kline_df, pred_df)
 
