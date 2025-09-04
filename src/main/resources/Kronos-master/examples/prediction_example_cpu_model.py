@@ -100,7 +100,8 @@ else:
     print(pred_df.head())
 
 # 保存预测结果
-pred_df.to_csv('result_'+'DATA_FILE_NAME', index=True)
+if(SAVE_RESULT):
+    pred_df.to_csv('result_'+'DATA_FILE_NAME', index=True)
 
 if(SHOW_RESULT) :
     # 拼接历史数据和预测数据用于绘图展示

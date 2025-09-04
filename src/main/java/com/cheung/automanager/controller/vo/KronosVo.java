@@ -14,4 +14,5 @@ public class KronosVo {
     Integer startIndex;
     boolean showResult;
     boolean printAllResult;
+    boolean saveResult;
 }
