@@ -1,5 +1,7 @@
 package com.cheung.automanager.config;
 
+import java.util.Objects;
+
 public class AutoConstant {
     /**
      * 配置文件分隔符
@@ -19,7 +21,11 @@ public class AutoConstant {
 
     public static final String PYTHON_PATH = "/usr/bin/python3";
 
-    public static final String KRONOS_EXAMPLE_PATH = "/Users/cheung/Downloads/Kronos-master/examples/";
+    public static final String KRONOS_EXAMPLE_PATH = "Kronos-master/examples/";
     public static final String LOOK_BACK_NUMBER = "LOOK_BACK_NUMBER";
     public static final String PRED_LEN_NUMBER = "PRED_LEN_NUMBER";
+
+    public static String getResourcePath(String path) {
+        return Objects.requireNonNull(AutoConstant.class.getClassLoader().getResource(path)).getPath();
+    }
 }

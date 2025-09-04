@@ -1,6 +1,7 @@
 package com.cheung.automanager.service.project;
 
 import cn.hutool.core.io.FileUtil;
+import com.cheung.automanager.config.AutoConstant;
 import com.cheung.automanager.controller.vo.KronosVo;
 import com.cheung.automanager.service.StrategyService;
 import lombok.extern.slf4j.Slf4j;
@@ -54,8 +55,10 @@ public class ProjectStrategyServiceImpl implements StrategyService {
 
     private Object execModel(boolean sync) {
         try {
+            //获取当前项目下的resources完整路径
+            String resourcePath = AutoConstant.getResourcePath(KRONOS_EXAMPLE_PATH);
             // 定义工作目录
-            File workingDir = new File(KRONOS_EXAMPLE_PATH);
+            File workingDir = new File(resourcePath);
 
             // 使用 ProcessBuilder 执行命令
             ProcessBuilder pb = new ProcessBuilder(PYTHON_PATH, EXEC_FILE_NAME);
@@ -112,7 +115,8 @@ public class ProjectStrategyServiceImpl implements StrategyService {
 
     private void changeDataFileName(KronosVo kronosVo) {
         // 读取模型文件内容
-        String modelPath = KRONOS_EXAMPLE_PATH + EXEC_FILE_NAME_MODEL;
+        String resourcesPath = KRONOS_EXAMPLE_PATH + EXEC_FILE_NAME_MODEL;
+        String modelPath = AutoConstant.getResourcePath(resourcesPath);
         String context = FileUtil.readString(modelPath, Charset.defaultCharset());
 
         // 替换数据文件名称
@@ -121,7 +125,7 @@ public class ProjectStrategyServiceImpl implements StrategyService {
         context = context.replaceAll(PRED_LEN_NUMBER, kronosVo.getPredLenNum().toString());
 
         // 将修改后的内容写回模型文件
-        String writePath = KRONOS_EXAMPLE_PATH + EXEC_FILE_NAME;
+        String writePath = AutoConstant.getResourcePath(KRONOS_EXAMPLE_PATH + EXEC_FILE_NAME);
         FileUtil.writeString(context, writePath, Charset.defaultCharset());
     }
 }

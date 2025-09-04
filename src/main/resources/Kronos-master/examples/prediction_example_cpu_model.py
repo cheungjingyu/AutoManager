@@ -71,7 +71,7 @@ df = pd.read_csv(filepath)
 df['timestamps'] = pd.to_datetime(df['timestamps'])
 
 lookback = LOOK_BACK_NUMBER       # 历史数据长度
-pred_len = 120       # 预测长度
+pred_len = PRED_LEN_NUMBER       # 预测长度
 
 # 截取历史数据作为输入特征
 x_df = df.loc[:lookback-1, ['open', 'high', 'low', 'close', 'volume', 'amount']]
